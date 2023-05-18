@@ -1,0 +1,10 @@
+[
+  {
+    "id": "f1973a91834e5ccbb5d0",
+    "name": "kino",
+    "who_paid": "Ganzo",
+    "who_must_pay": [{ "name": "Bilgun", "amount": 5 }],
+    "amount": 15,
+    "expense_date": 1684416293358
+  }
+]

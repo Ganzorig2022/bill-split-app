@@ -1,0 +1,10 @@
+[
+  {
+    "id": "21d0a5e9eb451b3b25ea",
+    "name": "My group",
+    "group_link": "http://localhost:8000/group/21d0a5e9eb451b3b25ea",
+    "members": ["Ganzo"],
+    "admin": "Ganzo",
+    "created": 1684408285646
+  }
+]
