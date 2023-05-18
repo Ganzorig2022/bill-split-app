@@ -5,7 +5,7 @@ const Debts = JSON.parse(
 const Users = JSON.parse(
   fs.readFileSync(`${__dirname}/../database/users.json`)
 );
-const crypto = require('crypto');
+const { processNewDebt } = require('../helpers/processNewDebt');
 
 // ============GET requests============
 // Get a list of all debts.
@@ -33,78 +33,10 @@ exports.getDebtBetweenUsers = async (req, res) => {
 // Add a debt between two users. (2 хүний хоорон дох өрийг нэмэх)
 exports.addDebt = async (req, res) => {
   const { from, to, amount } = req.body;
-  const id = crypto.randomBytes(16).toString('hex'); //generate random id
 
-  // 1) find the debts exists (өр байгаа эсэхийг олох)
-  const existingDebt = Debts.find(
-    (debt) => debt.from === from && debt.to === to
-  ); //
+  processNewDebt(from, to, amount);
 
-  // 2) If debt does not exist, then create it
-  if (!existingDebt) {
-    Debts.push({ id, from, to, amount });
-
-    fs.writeFile(
-      `${__dirname}/../database/debts.json`,
-      JSON.stringify(Debts),
-      (err) => {
-        res.status(201).json({ status: 'success', data: Debts });
-      }
-    );
-
-    // 2.1.1) өрөө хасуулах хүн, авлагаа авах хүний нийт балансыг мөн update хийх
-    const updatedUsers = Users.map((user) =>
-      user.name === from
-        ? { ...user, netDebt: user.netDebt + amount }
-        : user.name === to
-        ? { ...user, netDebt: user.netDebt - amount }
-        : user
-    );
-
-    // 2.1.2) Then push it to database
-    fs.writeFile(
-      `${__dirname}/../database/users.json`,
-      JSON.stringify(updatedUsers),
-      (err) => {
-        res.status(201).json({ status: 'success' });
-      }
-    );
-  }
-
-  // 3) if debt exists, then update it by amount (+ or -)
-  if (existingDebt) {
-    const updatedDebts = Debts.map((debt) =>
-      debt.from === from && debt.to === to
-        ? { ...debt, amount: debt.amount + amount }
-        : debt
-    );
-
-    fs.writeFile(
-      `${__dirname}/../database/debts.json`,
-      JSON.stringify(updatedDebts),
-      (err) => {
-        res.status(201).json({ status: 'success', data: Debts });
-      }
-    );
-
-    // 2.1.1) өрөө хасуулах хүн, авлагаа авах хүний нийт балансыг мөн update хийх
-    const updatedUsers = Users.map((user) =>
-      user.name === from
-        ? { ...user, netDebt: user.netDebt + amount }
-        : user.name === to
-        ? { ...user, netDebt: user.netDebt - amount }
-        : user
-    );
-
-    // 2.1.2) Then push it to database
-    fs.writeFile(
-      `${__dirname}/../database/users.json`,
-      JSON.stringify(updatedUsers),
-      (err) => {
-        res.status(201).json({ status: 'success' });
-      }
-    );
-  }
+  res.status(201).json({ status: 'success' });
 };
 
 // Settle a debt by ID (2 хүний хоорон дох өрийг хасах буюу тэглэх )
@@ -200,19 +132,4 @@ exports.settleDebt = async (req, res) => {
       });
     }
   }
-};
-
-// Delete a debt between a lender and borrower.
-exports.deleteDebtBetweenUsers = async (req, res) => {
-  // await debtModel.deleteOne({
-  //   from: req.params.from,
-  //   to: req.params.to,
-  // });
-  // // Now that we've deleted the debt, there may be a better way of allocating
-  // // the debt, so recalculate debts to minimise the number of transactions.
-  // helpers.simplifyDebts();
-  // res.send(
-  //   `Debt from '${req.params.from}' to '${req.params.to}' deleted\
-  //     successfully.`
-  // );
 };

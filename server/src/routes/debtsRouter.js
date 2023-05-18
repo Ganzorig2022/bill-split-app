@@ -4,7 +4,6 @@ const {
   getDebtBetweenUsers,
   addDebt,
   settleDebt,
-  deleteDebtBetweenUsers,
 } = require('../controllers/debtsController');
 const debtsRouter = express.Router();
 
@@ -12,10 +11,7 @@ const debtsRouter = express.Router();
 debtsRouter.route('/debts').get(getDebts);
 
 // "/group/id/debts/:from/:to"
-debtsRouter
-  .route('/debts/:from/:to')
-  .get(getDebtBetweenUsers)
-  .delete(deleteDebtBetweenUsers);
+debtsRouter.route('/debts/:from/:to').get(getDebtBetweenUsers);
 
 // "/group/id/debts/:from/add"
 debtsRouter.route('/debts/add').post(addDebt);

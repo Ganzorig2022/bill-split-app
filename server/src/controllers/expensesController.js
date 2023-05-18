@@ -13,8 +13,7 @@ exports.getExpenses = (_, res) => {
 
 // Create a expense
 exports.createExpense = (req, res) => {
-  const { amount, name, who_paid, debtors } = req.body;
-
+  const { amount, name, who_paid, debtors, group_id } = req.body;
   const id = crypto.randomBytes(10).toString('hex');
 
   // STEP-1. Зардлын мэдээллийг Expenses collection дээр хадгалах
@@ -25,6 +24,7 @@ exports.createExpense = (req, res) => {
     who_must_pay: debtors, //[{name: 'user1', amount:5000}, {name: 'user2', amount:5000}]
     amount, // 15000
     expense_date: Date.now(),
+    group_id,
   });
 
   fs.writeFile(
