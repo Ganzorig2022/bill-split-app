@@ -16,11 +16,11 @@ app.use(express.json());
 //prevent from CORS policy error
 app.use(cors());
 
-//localhost:port/group
-app.use('/group', groupsRouter);
-
 //localhost:port/group/id/users
 app.use('/group/:id', usersRouter);
+
+//localhost:port/group
+app.use('/group', groupsRouter);
 
 // //localhost:port/group/id/debts
 app.use('/group/:id', debtsRouter);
