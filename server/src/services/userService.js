@@ -36,6 +36,7 @@ exports.createUser = (req) => {
     phone,
     netDebt: 0,
   });
+  console.log('Users', Users);
 
   writeFile('users', Users);
 

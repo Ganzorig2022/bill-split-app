@@ -1,3 +1,5 @@
+const fs = require('fs');
+
 exports.writeFile = (databaseName, data) => {
   fs.writeFile(
     `${__dirname}/../database/${databaseName}.json`,

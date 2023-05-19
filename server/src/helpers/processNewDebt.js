@@ -44,9 +44,10 @@ exports.processNewDebt = async (from, to, amount) => {
         : debt
     );
 
+    // 3.1.2) Then push it to database
     writeFile('debts', updatedDebts);
 
-    // 2.1.1) өрөө хасуулах хүн, авлагаа авах хүний нийт балансыг мөн update хийх
+    // 3.1.3) өрөө хасуулах хүн, авлагаа авах хүний нийт балансыг мөн update хийх
     const updatedUsers = Users.map((user) =>
       user.name === from
         ? { ...user, netDebt: user.netDebt + amount }
@@ -55,8 +56,7 @@ exports.processNewDebt = async (from, to, amount) => {
         : user
     );
 
-    // 2.1.2) Then push it to database
-
+    // 3.1.4) Then push it to database
     writeFile('users', updatedUsers);
   }
 };

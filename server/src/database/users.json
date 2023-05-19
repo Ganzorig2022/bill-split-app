@@ -5,14 +5,14 @@
     "email": "ganzo@gmail.com",
     "password": "123456",
     "phone": "123456",
-    "netDebt": -14
+    "netDebt": 0
   },
   {
-    "id": "90b488175eb4c328950396ca43caa3cb",
+    "id": "2c76b67d7505c2bbe9394443f39d5916",
     "name": "Bilgun",
     "email": "bilgun@gmail.com",
     "password": "123456",
     "phone": "123456",
-    "netDebt": 14
+    "netDebt": 0
   }
 ]
