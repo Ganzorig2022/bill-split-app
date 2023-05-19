@@ -6,6 +6,7 @@ const Users = JSON.parse(
   fs.readFileSync(`${__dirname}/../database/users.json`)
 );
 const crypto = require('crypto');
+const { writeFile } = require('./writeFile');
 
 // Add a debt between two users. (2 хүний хоорон дох өрийг нэмэх)
 exports.processNewDebt = async (from, to, amount) => {
@@ -20,11 +21,7 @@ exports.processNewDebt = async (from, to, amount) => {
   if (!existingDebt) {
     Debts.push({ id, from, to, amount });
 
-    fs.writeFile(
-      `${__dirname}/../database/debts.json`,
-      JSON.stringify(Debts),
-      (err) => {}
-    );
+    writeFile('debts', Debts);
 
     // 2.1.1) өрөө хасуулах хүн, авлагаа авах хүний нийт балансыг мөн update хийх
     const updatedUsers = Users.map((user) =>
@@ -36,11 +33,7 @@ exports.processNewDebt = async (from, to, amount) => {
     );
 
     // 2.1.2) Then push it to database
-    fs.writeFile(
-      `${__dirname}/../database/users.json`,
-      JSON.stringify(updatedUsers),
-      (err) => {}
-    );
+    writeFile('users', updatedUsers);
   }
 
   // 3) if debt exists, then update it by amount (+ or -)
@@ -51,11 +44,7 @@ exports.processNewDebt = async (from, to, amount) => {
         : debt
     );
 
-    fs.writeFile(
-      `${__dirname}/../database/debts.json`,
-      JSON.stringify(updatedDebts),
-      (err) => {}
-    );
+    writeFile('debts', updatedDebts);
 
     // 2.1.1) өрөө хасуулах хүн, авлагаа авах хүний нийт балансыг мөн update хийх
     const updatedUsers = Users.map((user) =>
@@ -67,10 +56,7 @@ exports.processNewDebt = async (from, to, amount) => {
     );
 
     // 2.1.2) Then push it to database
-    fs.writeFile(
-      `${__dirname}/../database/users.json`,
-      JSON.stringify(updatedUsers),
-      (err) => {}
-    );
+
+    writeFile('users', updatedUsers);
   }
 };
