@@ -23,23 +23,23 @@
 
 ### 1. Group endpoints
 
-### GET
+#### GET
 
 http://localhost:PORT/group `Get groups`
 <br/>
 
-### POST
+#### POST
 
 http://localhost:PORT/group `Create a group`
 <br/>
 
-### PUT
+#### PUT
 
 http://localhost:PORT/group/id `Update a group`
 
 <br/>
 
-### DELETE
+#### DELETE
 
 http://localhost:PORT/group/id `Delete a group`
 
@@ -70,22 +70,22 @@ http://localhost:PORT/group/id `Delete a group`
 
 ### 2. User endpoints
 
-### GET
+#### GET
 
 http://localhost:PORT/group/id/users `Get users`
 <br/>
 
-### POST
+#### POST
 
 http://localhost:PORT/group/id/users `Create a user`
 <br/>
 
-### PUT
+#### PUT
 
-http://localhost:PORT/group/id/users/id `Update a user, delete a group`
+http://localhost:PORT/group/id/users/id `Update a user`
 <br/>
 
-### DELETE
+#### DELETE
 
 http://localhost:PORT/group/id/users/id `Delete a user`
 <br/>
@@ -107,7 +107,7 @@ http://localhost:PORT/group/id/users/id `Delete a user`
 
 ### 3. Debts endpoints
 
-### GET
+#### GET
 
 http://localhost:PORT/group/id/debts `Get debts`
 <br/>
@@ -115,17 +115,17 @@ http://localhost:PORT/group/id/debts `Get debts`
 http://localhost:PORT/group/id/debts/from/to `Get debts between users`
 <br/>
 
-### POST
+#### POST
 
 http://localhost:PORT/group/id/debts/add `Create a debt (өр үүсгэх)`
 <br/>
 
-### PUT
+#### PUT
 
 http://localhost:PORT/group/id/debts/settle `Sett debt between users (өр тэглэх)`
 <br/>
 
-### RESPONSE example
+#### RESPONSE example
 
 ```bash
 [
@@ -140,17 +140,17 @@ http://localhost:PORT/group/id/debts/settle `Sett debt between users (өр тэ�
 
 ### 4. Expenses endpoints
 
-### GET
+#### GET
 
 http://localhost:PORT/group/id/expenses `Get expenses, create a expense (тухайн өдрийн зардал үүсгэх)`
 <br/>
 
-### DELETE
+#### DELETE
 
 http://localhost:PORT/group/id/expenses/id `Delete a expense`
 <br/>
 
-### RESPONSE example
+#### RESPONSE example
 
 ```bash
 [
