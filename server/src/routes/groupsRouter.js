@@ -1,22 +1,22 @@
 const express = require('express');
 const {
-  getGroups,
-  getGroupById,
-  createGroup,
-  updateGroupById,
-  deleteGroupById,
+  getGroupsController,
+  getGroupController,
+  createGroupController,
+  updateGroupController,
+  deleteGroupController,
 } = require('../controllers/groupController');
 
 const groupRouter = express.Router();
 
 // "/group"
-groupRouter.route('/').get(getGroups).post(createGroup);
+groupRouter.route('/').get(getGroupsController).post(createGroupController);
 
 // "/group/id"
 groupRouter
   .route('/:id')
-  .get(getGroupById) // Get a group by their id.
-  .put(updateGroupById) // Update a group.
-  .delete(deleteGroupById); //Delete a group by their id.
+  .get(getGroupController) // Get a group by their id.
+  .put(updateGroupController) // Update a group.
+  .delete(deleteGroupController); //Delete a group by their id.
 
 module.exports = groupRouter;

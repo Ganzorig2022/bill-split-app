@@ -1,87 +1,52 @@
-const fs = require('fs');
-const crypto = require('crypto');
-const Users = JSON.parse(
-  fs.readFileSync(`${__dirname}/../database/users.json`)
-);
+const {
+  getUserByid,
+  getUsers,
+  createUser,
+  updateUser,
+  deleteUser,
+} = require('../services/userService');
 
 // Get All users
-exports.getUsers = (_, res) => {
-  res.status(200).json(Users);
+exports.getUsersController = async (_, res) => {
+  try {
+    res.send(getUsers());
+  } catch (error) {
+    res.status(500).send(error);
+  }
 };
 
 // Get user by Id
-exports.getUserByid = (req, res) => {
-  const id = req.params.id;
-
-  const user = Users.find((user) => user.id === id);
-
-  return res.status(200).json(user);
+exports.getUserController = (req, res) => {
+  try {
+    res.send(getUserByid(req));
+  } catch (error) {
+    res.status(500).send(error);
+  }
 };
 
-// Create a user
-exports.createUser = (req, res) => {
-  const { name, email, password, phone } = req.body;
-  const id = crypto.randomBytes(16).toString('hex');
-
-  Users.push({
-    id,
-    name,
-    email,
-    password,
-    phone,
-    netDebt: 0,
-  });
-
-  fs.writeFile(
-    `${__dirname}/../database/users.json`,
-    JSON.stringify(Users),
-    (err) => {
-      res.status(201).json({ status: 'success', data: Users });
-    }
-  );
+// Create user
+exports.createUserController = (req, res) => {
+  try {
+    res.send(createUser(req));
+  } catch (error) {
+    res.status(500).send(error);
+  }
 };
 
-// Update a user by id
-exports.updateUser = (req, res) => {
-  const id = req.params.id;
-  const { name, email, phone } = req.body;
-  const user = Users.find((user) => user.id === id);
-
-  if (!user)
-    return res.status(404).json({
-      message: ' User not found with this id',
-    });
-
-  const updatedUsers = Users.map((user) =>
-    user.id === id ? { ...user, name, email, phone } : user
-  );
-
-  fs.writeFile(
-    `${__dirname}/../database/users.json`,
-    JSON.stringify(updatedUsers),
-    (err) => {
-      res.status(201).json({ status: 'success', data: updatedUsers });
-    }
-  );
+// Update user by id
+exports.updateUserController = (req, res) => {
+  try {
+    res.send(updateUser(req));
+  } catch (error) {
+    res.status(500).send(error);
+  }
 };
 
-// Delete a user by id
-exports.deleteUser = (req, res) => {
-  const id = req.params.id;
-  const user = Users.find((user) => user.id === id);
-
-  if (!user)
-    return res.status(200).json({
-      message: ' User not found with this id',
-    });
-
-  const updatedUsers = Users.filter((user) => user.id !== id);
-
-  fs.writeFile(
-    `${__dirname}/../database/users.json`,
-    JSON.stringify(updatedUsers),
-    (err) => {
-      res.status(201).json({ status: 'success' });
-    }
-  );
+// Delete user by id
+exports.deleteUserController = (req, res) => {
+  try {
+    res.send(deleteUser(req));
+  } catch (error) {
+    res.status(500).send(error);
+  }
 };
