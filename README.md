@@ -17,13 +17,37 @@
 4. Install dependencies: `npm install`
 5. Run the server: `npm start`
 
-### Endpoints
+## API Endpoints
 
-#### Group endpoints
+Дараах endpoint ашиглагдана.
 
-http://localhost:PORT/group - Get groups, create a group
+### 1. Group endpoints
 
-```js
+### GET
+
+http://localhost:PORT/group `Get groups`
+<br/>
+
+### POST
+
+http://localhost:PORT/group `Create a group`
+<br/>
+
+### PUT
+
+http://localhost:PORT/group/id `Update a group`
+
+<br/>
+
+### DELETE
+
+http://localhost:PORT/group/id `Delete a group`
+
+<br/>
+
+#### RESPONSE example
+
+```bash
 [
   {
     id: '21d0a5e9eb451b3b25ea',
@@ -44,27 +68,31 @@ http://localhost:PORT/group - Get groups, create a group
 ];
 ```
 
-http://localhost:PORT/group/id - Get group, update a group, delete a group
+### 2. User endpoints
 
-```js
-[
-  {
-    id: '21d0a5e9eb451b3b25ea',
-    name: 'My group',
-    group_link: 'http://localhost:PORT/group/21d0a5e9eb451b3b25ea',
-    members: ['Ganzo'],
-    admin: 'Ganzo',
-    created: 1684408285646,
-  },
-];
-```
+### GET
 
-#### User endpoints
+http://localhost:PORT/group/id/users `Get users`
+<br/>
 
-http://localhost:PORT/group/id/users - Get users, create a user
-http://localhost:PORT/group/id/users/id - Get user, update a group, delete a group
+### POST
 
-```js
+http://localhost:PORT/group/id/users `Create a user`
+<br/>
+
+### PUT
+
+http://localhost:PORT/group/id/users/id `Update a user, delete a group`
+<br/>
+
+### DELETE
+
+http://localhost:PORT/group/id/users/id `Delete a user`
+<br/>
+
+#### RESPONSE example
+
+```bash
 [
   {
     id: 'be90e6a756d4a3ebe8d1f547dc401abe',
@@ -74,43 +102,57 @@ http://localhost:PORT/group/id/users/id - Get user, update a group, delete a gro
     phone: '123456',
     netDebt: -14,
   },
+];
+```
+
+### 3. Debts endpoints
+
+### GET
+
+http://localhost:PORT/group/id/debts `Get debts`
+<br/>
+
+http://localhost:PORT/group/id/debts/from/to `Get debts between users`
+<br/>
+
+### POST
+
+http://localhost:PORT/group/id/debts/add `Create a debt (өр үүсгэх)`
+<br/>
+
+### PUT
+
+http://localhost:PORT/group/id/debts/settle `Sett debt between users (өр тэглэх)`
+<br/>
+
+### RESPONSE example
+
+```bash
+[
   {
-    id: '90b488175eb4c328950396ca43caa3cb',
-    name: 'Bilgun',
-    email: 'bilgun@gmail.com',
-    password: '123456',
-    phone: '123456',
-    netDebt: 14,
+    id: '428583b145af80862fcd12cfd2d3aeda',
+    from: 'Bilgun',
+    to: 'Ganzo',
+    amount: 14,
   },
 ];
 ```
 
-#### Debts endpoints
+### 4. Expenses endpoints
 
-http://localhost:PORT/group/id/debts - Get debts
-http://localhost:PORT/group/id/debts/add - Create a debt (өр үүсгэх)
-http://localhost:PORT/group/id/debts/from/to - Get debts between users
-http://localhost:PORT/group/id/debts/settle - Sett debt between users (өр тэглэх)
+### GET
 
-```js
-[
-  [
-    {
-      id: '428583b145af80862fcd12cfd2d3aeda',
-      from: 'Bilgun',
-      to: 'Ganzo',
-      amount: 14,
-    },
-  ],
-];
-```
+http://localhost:PORT/group/id/expenses `Get expenses, create a expense (тухайн өдрийн зардал үүсгэх)`
+<br/>
 
-#### Expenses endpoints
+### DELETE
 
-http://localhost:PORT/group/id/expenses - Get expenses, create a expense (тухайн өдрийн зардал үүсгэх)
-http://localhost:PORT/group/id/expenses/id - Delete a expense
+http://localhost:PORT/group/id/expenses/id `Delete a expense`
+<br/>
 
-```js
+### RESPONSE example
+
+```bash
 [
   {
     id: '1ea2e128e6de554c9f50',
